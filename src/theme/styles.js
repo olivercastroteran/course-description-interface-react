@@ -3,6 +3,16 @@ import Constants from './constants';
 
 
 const useStyles = makeStyles((theme) => ({
+
+  // //////////////////////////////////////////////////////
+  // Common
+
+  regularMarginTop: {
+    marginTop: theme.spacing(5),
+  },
+  // //////////////////////////////////////////////////////
+  // LAYOUT
+
   root: {
     display: 'flex',
   },
@@ -63,6 +73,9 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     position: 'absolute',
   },
+
+  // //////////////////////////////////////////////////////
+  // COURSE SHOW
 }));
 
 export default useStyles;
