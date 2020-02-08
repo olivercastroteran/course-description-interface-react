@@ -40,6 +40,13 @@ const FormDialog = ({ open, close, book }) => {
           <Button onClick={close} color="secondary">
             Cancel
           </Button>
+          {
+            book && (
+              <Button onClick={() => { setTitle(book.title); setAuthor(book.author); }} color="primary">
+                Discard
+              </Button>
+            )
+          }
           <Button onClick={close} color="primary">
             Save
           </Button>
