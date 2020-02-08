@@ -67,15 +67,14 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0,
   },
   addButton: {
-    fontSize: 60,
     margin: theme.spacing(2),
     bottom: 0,
     right: 0,
     position: 'absolute',
   },
-
-  // //////////////////////////////////////////////////////
-  // COURSE SHOW
+  addButtonSize: {
+    fontSize: 60,
+  },
 }));
 
 export default useStyles;
