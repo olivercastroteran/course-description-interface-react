@@ -3,13 +3,13 @@ import CourseDescription from './description';
 import BooksTable from '../books/table';
 import useStyles from '../../theme/styles';
 
-const CourseShow = () => {
+const CourseShow = ({ course }) => {
   const classes = useStyles();
 
   return (
     <>
       <div>
-        <CourseDescription />
+        <CourseDescription course={course} />
       </div>
       <div className={classes.regularMarginTop}>
         <BooksTable />

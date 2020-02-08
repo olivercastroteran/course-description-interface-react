@@ -1,13 +1,15 @@
 import React from 'react';
-import IndexView from './views';
-import Show from './views/courses/show';
-import Layout from './views/layout/';
+import { Provider } from 'react-redux';
+import Routes from './routes';
+import configureStore from './config/config-store';
+
+const store = configureStore();
 
 function App() {
   return (
-    <Layout>
-      <Show />
-    </Layout>
+    <Provider store={store}>
+      <Routes />
+    </Provider>
   );
 }
 

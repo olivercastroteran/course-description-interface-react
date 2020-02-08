@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, TextField, Dialog, DialogActions,
   DialogContent, DialogTitle } from '@material-ui/core';
 
-const FormDialog = ({ open, close, course }) => {
+const FormDialog = ({ open, close, course, success }) => {
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
 
@@ -37,10 +37,26 @@ const FormDialog = ({ open, close, course }) => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={close} color="primary">
+          <Button onClick={close} color="secondary">
             Cancel
           </Button>
-          <Button onClick={close} color="primary">
+          {course
+            && (
+            <Button
+              onClick={() => { setName(course.name); setDescription(course.description); }}
+            >
+              Discard
+            </Button>
+            )}
+          <Button
+            onClick={() => {
+              success(course ? { ...course, name, description } : { name, description });
+              close();
+              setName('');
+              setDescription('');
+            }}
+            color="primary"
+          >
             Save
           </Button>
         </DialogActions>

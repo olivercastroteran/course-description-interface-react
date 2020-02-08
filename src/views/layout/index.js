@@ -1,13 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { useTheme } from '@material-ui/core/styles';
 import { Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton,
   ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { Menu, CollectionsBookmark, ChevronLeft, ChevronRight, AddCircle } from '@material-ui/icons';
+import { addCourse } from '../../actions';
 import useStyles from '../../theme/styles';
 import Form from '../courses/form';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, courses, addCourseAction }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
@@ -23,7 +26,11 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <Form open={addOpen} close={() => setAddOpen(false)} />
+      <Form
+        open={addOpen}
+        close={() => setAddOpen(false)}
+        success={addCourseAction}
+      />
       <div className={classes.root}>
         <CssBaseline />
         <AppBar
@@ -64,11 +71,13 @@ const Layout = ({ children }) => {
           </div>
           <Divider />
           <List>
-            {['course #1', 'course #2', 'course #3'].map((text) => (
-              <ListItem button key={text}>
-                <ListItemIcon><CollectionsBookmark /></ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
+            {courses.items.map((course) => (
+              <Link to={`/courses/${course.id}`} style={{ textDecoration: 'none' }}>
+                <ListItem button key={course.name}>
+                  <ListItemIcon><CollectionsBookmark /></ListItemIcon>
+                  <ListItemText primary={course.name} />
+                </ListItem>
+              </Link>
             ))}
           </List>
           <div>
@@ -90,4 +99,12 @@ const Layout = ({ children }) => {
   );
 };
 
-export default Layout;
+const mapDispatchToProps = {
+  addCourseAction: addCourse,
+};
+
+const mapStateToProps = (state) => ({
+  courses: state.courses,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);
