@@ -2,6 +2,9 @@ import {
   ADD_COURSE,
   UPDATE_COURSE,
   DELETE_COURSE,
+  ADD_BOOK,
+  DELETE_BOOK,
+  UPDATE_BOOK,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -24,7 +27,7 @@ const INITIAL_STATE = {
       },
     ],
   }],
-  lastId: 123,
+  lastId: 1,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -32,7 +35,7 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_COURSE:
       return { ...state,
-        items: state.items.concat({ ...payload.course, id: state.lastId + 1 }),
+        items: state.items.concat({ ...payload.course, id: state.lastId + 1, textbooks: [] }),
         lastId: state.lastId + 1 };
     case UPDATE_COURSE:
       return { ...state,
@@ -41,6 +44,46 @@ export default (state = INITIAL_STATE, action) => {
         ) };
     case DELETE_COURSE:
       return { ...state, items: state.items.filter((item) => item.id !== payload.course.id) };
+    case ADD_BOOK:
+      return { ...state,
+        items: state.items.map((item) => {
+          if (item.id === payload.course.id) {
+            return {
+              ...item,
+              textbooks: item.textbooks.concat(payload.book),
+            };
+          }
+          return item;
+        }) };
+
+      // WORKING WITH NAME AND AUTHOR AS KEY AS THERE IS NO ID IN THE BACK END
+
+    case DELETE_BOOK:
+      return { ...state,
+        items: state.items.map((item) => {
+          if (item.id === payload.course.id) {
+            return {
+              ...item,
+              textbooks: item.textbooks.filter(
+                (b) => (b.name + b.author) !== (payload.book.name + payload.book.author),
+              ),
+            };
+          }
+          return item;
+        }) };
+    case UPDATE_BOOK:
+      return { ...state,
+        items: state.items.map((item) => {
+          if (item.id === payload.course.id) {
+            return {
+              ...item,
+              textbooks: item.textbooks.map(
+                (b) => ((b.name + b.author) === (payload.prevBook.name + payload.prevBook.author) ? payload.book : b),
+              ),
+            };
+          }
+          return item;
+        }) };
     default:
       return state;
   }

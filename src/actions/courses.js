@@ -17,3 +17,21 @@ export const updateCourse = (course) => (
     dispatch({ type: UPDATE_COURSE, payload: { course } });
   }
 );
+
+export const addBook = (course, book) => (
+  (dispatch) => {
+    dispatch({ type: ADD_BOOK, payload: { course, book } });
+  }
+);
+
+export const deleteBook = (course, book) => (
+  (dispatch) => {
+    dispatch({ type: DELETE_BOOK, payload: { course, book } });
+  }
+);
+
+export const updateBook = (course, book, prevBook) => (
+  (dispatch) => {
+    dispatch({ type: UPDATE_BOOK, payload: { course, book, prevBook } });
+  }
+);
