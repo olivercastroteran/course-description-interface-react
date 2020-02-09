@@ -12,7 +12,7 @@ const CourseShow = ({ course }) => {
         <CourseDescription course={course} />
       </div>
       <div className={classes.regularMarginTop}>
-        <BooksTable />
+        <BooksTable course={course} />
       </div>
     </>
   );
